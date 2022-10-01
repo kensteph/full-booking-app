@@ -8,13 +8,26 @@ import "./list.css";
 import SearchItem from "../../Components/searchItem/SearchItem";
 import MailingList from "../../Components/mailingList/MailingList";
 import Footer from "../../Components/footer/Footer";
+import useFetch from "../../hooks/useFetch";
 export const List = () => {
   const location = useLocation(); //This hook allows us to receive data from other pages
-  console.log(location);
+  //console.log(location);
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState(location.state.date);
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setOptions] = useState(location.state.options);
+  const [min, setMin] = useState(1);
+  const [max, setMax] = useState(1000);
+
+  const { loading, data,reFetchData } = useFetch(
+    `/hotels?city=${destination}&min=${min}&max=${max}`
+  );
+  //console.log(data);
+
+  const hancleClick =()=>{
+    reFetchData();
+  }
+
   return (
     <>
       <Navbar />
@@ -25,7 +38,7 @@ export const List = () => {
             <h1 className="formTitle">Search</h1>
             <div className="searchInput">
               <label>Destination</label>
-              <input type="text" placeholder={destination} />
+              <input type="text" placeholder={destination} onChange={(e)=>setDestination(e.target.value)} />
             </div>
             <div className="searchInput">
               <label>Check-in date</label>
@@ -51,13 +64,13 @@ export const List = () => {
                   <label>
                     Min price <small>(per night)</small>
                   </label>
-                  <input type="number" min="1" />
+                  <input type="number" min="1" onChange={e=>setMin(e.target.value)} />
                 </div>
                 <div className="optionItem">
                   <label>
                     Max price <small>(per night)</small>
                   </label>
-                  <input type="number" min="1" />
+                  <input type="number" min="1" onChange={e=>setMax(e.target.value)} />
                 </div>
                 <div className="optionItem">
                   <label>Adult</label>
@@ -73,26 +86,21 @@ export const List = () => {
                 </div>
               </div>
             </div>
-            <button className="searchButton">Search</button>
+            <button className="searchButton" onClick={hancleClick}>Search</button>
           </div>
-          <div className="searchResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-          </div>
+
+          {loading ? (
+           <div> Loading...</div>
+          ) : (
+            <div className="searchResult">
+              {data &&
+                data.map((item, i) => <SearchItem hotel={item} key={i} />)}
+            </div>
+          )}
         </div>
-        <MailingList/>
-      <Footer/>
+        <MailingList />
+        <Footer />
       </div>
-      
     </>
   );
 };

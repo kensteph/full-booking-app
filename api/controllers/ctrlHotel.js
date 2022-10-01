@@ -100,7 +100,7 @@ export const countByType = async (req, res, next) => {
       { type: "Villas", count: countVilla },
       { type: "Cabins", count: countCabin },
     ];
-    console.log(counts);
+    //console.log(counts);
     res.status(200).json(counts);
   } catch (error) {
     next(error);

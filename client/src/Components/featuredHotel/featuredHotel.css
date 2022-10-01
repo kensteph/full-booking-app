@@ -1,0 +1,40 @@
+.featuredHotel {
+  display: flex;
+  width: 100%;
+  max-width: 1024px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.featuredHotelItem {
+  flex: 1;
+  gap: 10px;
+}
+.featuredHotelImage {
+  width: 100%;
+}
+.featuredHotelTexts {
+  display: flex;
+  flex-direction: column;
+  gap:10px
+}
+.featuredHotelTextsHotelName,.featuredHotelTextsHotelPrice{
+    font-weight: bold;
+    font-size: 12px;
+}
+.featuredHotelTextsHotelRateNumber {
+  background-color: darkslateblue;
+  color: white;
+  font-size: 9px;
+  border: none;
+}
+.featuredHotelTextsHotelCity{
+    color: gray;
+}
+.featuredHotelBoxRate {
+  display: flex;
+  gap: 10px;
+}
+.featuredHotelTextsHotelRateNumber{
+    font-weight: bold;
+}

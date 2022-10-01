@@ -1,0 +1,33 @@
+.footer{
+    width: 100%;
+    max-width: 1024px;
+    font-size: 12px;
+    align-items: center;
+}
+.footerItem{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+   /* padding: 10px 0px 10px 0px; */
+}
+
+.col1{
+   list-style: none;
+}
+.col-item{
+    margin-bottom: 10px;
+}
+.col-item>a{
+    text-decoration: none;
+    color: blue;
+    font-weight: 100;
+}
+.col-item>a:hover{
+    color: orange;
+}
+.copyrigth{
+width: 100%;
+max-width: 1024px;
+margin-bottom: 10px;
+}

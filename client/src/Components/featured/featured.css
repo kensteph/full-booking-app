@@ -1,0 +1,29 @@
+.featured{
+    width: 100%;
+    max-width:1024px ;
+    display: flex;
+    justify-content: space-between;/*take all the available space and give equal space between items*/
+    gap: 10px;
+    z-index: 1;/*Place it under the header with z-index>1*/
+}
+
+
+.featuredItem{
+    border-radius: 10px;
+    position: relative;/*In order to positionate any child where we want*/
+    color: white;
+    overflow: hidden;
+    height: 200px;
+}
+
+.featuredImage{
+    width: 100%;
+    object-fit: cover;
+}
+
+.featuredText{
+    left: 10px;
+    position: absolute;/*Positionate it where I want in the parent div*/
+    bottom:5px;
+    font-size: 10px;
+}

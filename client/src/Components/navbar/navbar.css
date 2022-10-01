@@ -1,0 +1,27 @@
+ .navbar {
+  height: 50px;
+  background-color: dodgerblue;
+  display: flex;
+  justify-content: center;
+}
+
+.navContainer {
+  width: 100%;
+  max-width: 1024px;
+  color: white;
+  display: flex;/* display the container horizontally by default */
+  align-items: center; /* Align the items center*/
+  justify-content: space-between;/**/
+}
+
+.logo{
+    font-weight: 500;
+}
+
+.navButton{
+    margin-left: 20px;
+    border: none;/*Remove the border*/
+    padding: 5px 10px;
+    cursor: pointer;
+    color:dodgerblue;
+}

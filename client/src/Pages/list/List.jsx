@@ -13,7 +13,7 @@ export const List = () => {
   const location = useLocation(); //This hook allows us to receive data from other pages
   //console.log(location);
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState(location.state.date);
+  const [dates, setDates] = useState(location.state.dates);
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(1);
@@ -45,14 +45,14 @@ export const List = () => {
               <label
                 onClick={() => setOpenDate(!openDate)}
                 className="dateLabel"
-              >{`${format(date[0].startDate, "dd-MM-yyyy")}  to ${format(
-                date[0].endDate,
+              >{`${format(dates[0].startDate, "dd-MM-yyyy")}  to ${format(
+                dates[0].endDate,
                 "dd-MM-yyyy"
               )}`}</label>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDate([item.selection])}
-                  ranges={date}
+                  onChange={(item) => setDates([item.selection])}
+                  ranges={dates}
                   minDate={new Date()}
                 />
               )}

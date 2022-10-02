@@ -15,6 +15,8 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SearchContext } from "../../context/SearchContext";
 
 const Header = ({ type }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -25,7 +27,7 @@ const Header = ({ type }) => {
     children: 0,
     room: 1,
   });
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //THIS hook allows to navigate through the pages
 
   const handleOption = (optionName, operation) => {
     setOptions((prev) => {
@@ -40,16 +42,19 @@ const Header = ({ type }) => {
     });
   };
 
-  const [date, setDate] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
       key: "selection",
     },
   ]);
+  //We gonnan use our State Management
+  const { dispatch } = useContext(SearchContext); //We use dispacth to update our custom state
 
   const handleSearch = () => {
-    navigate("/hotels", { state: { destination, date, options } });
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+    navigate("/hotels", { state: { destination, dates, options } });
   };
   return (
     <div className="header">
@@ -110,17 +115,17 @@ const Header = ({ type }) => {
                   className="headerSearchText"
                   onClick={() => setOpenDatePicker(!openDatePicker)}
                 >
-                  {`${format(date[0].startDate, "dd-MM-yyyy")}  to ${format(
-                    date[0].endDate,
+                  {`${format(dates[0].startDate, "dd-MM-yyyy")}  to ${format(
+                    dates[0].endDate,
                     "dd-MM-yyyy"
                   )}`}
                 </span>
                 {openDatePicker && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => setDates([item.selection])}
                     moveRangeOnFirstSelection={false}
-                    ranges={date}
+                    ranges={dates}
                     className="date"
                     minDate={new Date()}
                   />

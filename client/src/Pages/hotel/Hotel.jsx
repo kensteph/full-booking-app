@@ -16,6 +16,8 @@ import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import { daysBetweenDates } from "../../utils/tools";
+import { UserContext } from "../../context/UserContext";
+import Reservation from "../../Components/reservation/Reservation";
 
 const Hotel = () => {
   const location = useLocation(); //This hook allows us to receive data from other pages
@@ -23,9 +25,12 @@ const Hotel = () => {
   const hotelId = location.pathname.split("/")[2];
   const { loading, data } = useFetch(`/hotels/find/${hotelId}`);
   //console.log(data);
-  //We gonnan use our State Management
-  const { dates,options } = useContext(SearchContext); //We use STATE NAME to get the current state from our custom state
-  console.log("CUSTOM STATE : ", dates,options);
+  //We gonna use our State Management
+  const { dates, options } = useContext(SearchContext); //We use STATE NAME to get the current state from our custom state
+  console.log("CUSTOM STATE : ", dates, options);
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   let nbNights = daysBetweenDates(
     dates[0]?.endDate || new Date(),
     dates[0]?.startDate || new Date()
@@ -61,6 +66,12 @@ const Hotel = () => {
     }
     setSlide(newSlide);
   };
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleClick = () => {
+    setOpenModal(!openModal);
+  };
   return (
     <>
       <Navbar />
@@ -90,6 +101,8 @@ const Hotel = () => {
           </div>
         )}
 
+        {openModal && <Reservation setOpenModal={setOpenModal}  hotel={hotelId} />}
+
         {loading ? (
           "Loading..."
         ) : (
@@ -117,30 +130,35 @@ const Hotel = () => {
                 />
               ))}
             </div>
-            <button className="bookBtn">Reserve or Book Now!</button>
+            <button className="bookBtn" onClick={handleClick}>
+              Reserve or Book Now!
+            </button>
             <div className="descAndPrice">
               <div className="description">
                 <h1 className="pTitle">{data.title}</h1>
                 {data.desc}
               </div>
               <div className="priceBox">
-                <span className="pTitle">Perfect for a {nbNights}-night stay!</span>
+                <span className="pTitle">
+                  Perfect for a {nbNights}-night stay!
+                </span>
                 <span className="plocation">
                   Located in the real heart of Port-au-Prince,this property has
                   an excellent location score of 8.6!
                 </span>
                 <div className="pPrice">
                   <span>
-                    <b>${nbNights*data?.minPrice*options.room}</b>
+                    <b>${nbNights * data?.minPrice * options.room}</b>
                   </span>
                   <span>({nbNights} nights)</span>
                 </div>
-                <button className="bookBtn2">Reserve or Book Now!</button>
+                <button className="bookBtn2" onClick={handleClick}>
+                  Reserve or Book Now!
+                </button>
               </div>
             </div>
           </div>
         )}
-
         <MailingList />
         <Footer />
       </div>

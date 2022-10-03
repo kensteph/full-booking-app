@@ -17,6 +17,7 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { SearchContext } from "../../context/SearchContext";
+import { UserContext } from "../../context/UserContext";
 
 const Header = ({ type }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -51,7 +52,7 @@ const Header = ({ type }) => {
   ]);
   //We gonnan use our State Management
   const { dispatch } = useContext(SearchContext); //We use dispacth to update our custom state
-
+  const { user } = useContext(UserContext);
   const handleSearch = () => {
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
@@ -94,7 +95,9 @@ const Header = ({ type }) => {
               Get rewarded for your travels-unlock instant savings of 10% or
               more with a free Kajbooking account
             </p>
-            <button className="headerButton">Sign in / Register</button>
+            {!user && (
+              <button className="headerButton">Sign in / Register</button>
+            )}
 
             <div className="headerSearch">
               <div className="headerSearchItem">

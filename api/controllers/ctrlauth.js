@@ -27,7 +27,7 @@ export const registerUser = async (req, res, next) => {
 export const login = async (req, res, next) => {
   //CREATE A MODEL AND RETREIVE THE DATA FROM THE REQUEST
   let data = req.body;
-  console.log(data);
+  console.log("LOGIN ATTEMPT : ",data);
   try {
     //SEARCH USER
     const userFound = await User.findOne({ username: data.username });

@@ -8,6 +8,7 @@ import {
   getAllHotels,
   getHotel,
   updateHotel,
+  getHotelRooms
 } from "../controllers/ctrlHotel.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
@@ -27,6 +28,9 @@ router.delete("/:id",verifyAdmin, deleteHotel);
 
 //GET
 router.get("/find/:id", getHotel);
+
+//GET HOTEL ROOMS
+router.get("/room/:id", getHotelRooms);
 
 //GET ALL
 router.get("/", getAllHotels);

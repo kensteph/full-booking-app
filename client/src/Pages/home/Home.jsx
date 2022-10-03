@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Featured from "../../Components/featured/Featured";
 import FeaturedHotel from "../../Components/featuredHotel/FeaturedHotel";
 import Footer from "../../Components/footer/Footer";
@@ -5,8 +6,13 @@ import Header from "../../Components/header/Header";
 import MailingList from "../../Components/mailingList/MailingList";
 import { Navbar } from "../../Components/navbar/Navbar";
 import PropertyList from "../../Components/PropertyList/PropertyList";
+import { UserContext } from "../../context/UserContext";
 import "./home.css";
 export const Home = () => {
+
+  const {user}=useContext(UserContext);
+  console.log("USER INFO : ",user);
+
   return (
       <div>
         <Navbar />
@@ -20,7 +26,6 @@ export const Home = () => {
           <MailingList/>
           <Footer/>
         </div>
-        
       </div>
   );
 };

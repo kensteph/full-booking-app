@@ -1,0 +1,30 @@
+/*MODAL*/
+.modalContainer {
+  position: relative;
+  z-index: 2000;
+}
+
+.modalContent {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.623);
+  align-items: center;
+  justify-content: center;
+}
+
+.modalItems {
+  background-color: white;
+}
+
+.closeModalBtn {
+  font-size: 50px;
+  color:rgb(0, 0, 0);
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

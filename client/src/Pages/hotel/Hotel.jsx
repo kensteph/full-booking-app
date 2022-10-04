@@ -27,9 +27,9 @@ const Hotel = () => {
   //console.log(data);
   //We gonna use our State Management
   const { dates, options } = useContext(SearchContext); //We use STATE NAME to get the current state from our custom state
-  console.log("CUSTOM STATE : ", dates, options);
+  //console.log("CUSTOM STATE : ", dates, options);
   const { user } = useContext(UserContext);
-  console.log(user);
+  //console.log(user);
 
   let nbNights = daysBetweenDates(
     dates[0]?.endDate || new Date(),

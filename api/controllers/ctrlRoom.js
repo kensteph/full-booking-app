@@ -24,7 +24,7 @@ export const createRoom = async (req, res, next) => {
 };
 
 //UPDATE EXISTING Room
-export const updateRoom = async (req, res,next) => {
+export const updateRoom = async (req, res, next) => {
   //CREATE A MODEL AND RETREIVE THE DATA TO CHANGE
   const updateRoom = req.body;
   const idToUpdate = req.params.id;
@@ -39,9 +39,31 @@ export const updateRoom = async (req, res,next) => {
     next(error);
   }
 };
-
+//UPDATE ROOM AVAILABILITY
+export const updateRoomAvailability = async (req, res, next) => {
+  console.log(
+    "UPDATE room availability",
+    req.body.dates,
+    "ROOM ID :",
+    req.params.id
+  );
+  try {
+    //UPDATE NESTED PROPERTIES
+    await Room.updateOne(
+      { "roomNumbers._id": req.params.id },
+      {
+        $push: {
+          "roomNumbers.$.unavailableDates": req.body.dates,
+        },
+      }
+    );
+    res.status(200).json("Room availaility updated...");
+  } catch (error) {
+    next(error);
+  }
+};
 //DELETE Room
-export const deleteRoom = async (req, res,next) => {
+export const deleteRoom = async (req, res, next) => {
   //GET THE ID TO DELETE
   const idToDelete = req.params.id;
   //RETREIVE THE HOTEL ID FOR WICH WE GONNA REMOVE THIS ROOM

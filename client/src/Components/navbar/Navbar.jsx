@@ -4,7 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import "./navbar.css";
 export const Navbar = () => {
   const {user}=useContext(UserContext);
-  console.log("USER INFO : ",user);
+  //console.log("USER INFO : ",user);
   return (
     <div className="navbar">
       <div className="navContainer">

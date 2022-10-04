@@ -2,14 +2,16 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 import { getDateInRange } from "../../utils/tools";
 import "./reservation.css";
 
 const Reservation = ({ setOpenModal, hotel }) => {
+  const navigate = useNavigate();
   const { loading, data } = useFetch(`/hotels/room/${hotel}`);
-  console.log(data);
+  //console.log(data);
   //Using of my Search Context to access the dates selected by the user
   const { dates } = useContext(SearchContext);
   //State for the selected rooms
@@ -34,19 +36,18 @@ const Reservation = ({ setOpenModal, hotel }) => {
 
   //Verify if the rooms are available
   const ifRoomAvailable = (roomNumber) => {
-   // if (roomNumber.unavailableDates.length === 0) return true;
-    console.log("REQ DATE :",allRequestDates)
+    // if (roomNumber.unavailableDates.length === 0) return true;
+    console.log("REQ DATE :", allRequestDates);
     const isFound = roomNumber?.unavailableDates.some((date) => {
       //For each date in unavailableDates we will check if  it in allRequestDates user
       //Don't forget to convert the date in timestamp
-      console.log("DB DATE",new Date(date).getTime())
+      console.log("DB DATE", new Date(date).getTime());
       return allRequestDates.includes(new Date(date).getTime());
     });
     //isFound is true : The room is not available false Available
     //So we return the opposite
-    console.log("IS_FOUN",isFound);
+    console.log("IS_FOUN", isFound);
     return !isFound;
-    
   };
   //Make the reservation for the user
   const handleClick = async () => {
@@ -60,6 +61,8 @@ const Reservation = ({ setOpenModal, hotel }) => {
           return res.data;
         })
       );
+      setOpenModal(false);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

@@ -62,7 +62,7 @@ gap: 10px;
 }
 .closeModalBtn {
   font-size: 20px;
-  color:rgb(0, 0, 0);
+  color:rgba(0, 0, 0, 0.87);
   cursor: pointer;
   position: absolute;
   top: 5px;

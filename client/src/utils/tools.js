@@ -4,3 +4,16 @@ export const daysBetweenDates = (date1, date2) => {
   const diffDays = Math.ceil(timeDiff / MILI_SECONDS_PER_DAY);
   return diffDays;
 };
+
+export const getDateInRange = (start, end) => {
+  const sDate = new Date(start); //.getTime();
+  const eDate = new Date(end); //.getTime();
+  let dates = [];
+  while (sDate <= eDate) {
+    //console.log(sDate, " | ", eDate);
+    dates.push(new Date(sDate).getTime()); //Convert 'new Date(sDate)' to timestamp for better management
+    //ADD 1 DAY TO THE START DATE
+    sDate.setDate(sDate.getDate() + 1);
+  }
+  return dates;
+};
